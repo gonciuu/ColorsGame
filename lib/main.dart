@@ -11,6 +11,9 @@ class ColorRun extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Home(),
+      theme: ThemeData(
+        fontFamily: "Montserrat"
+      ),
     );
   }
 }
