@@ -23,14 +23,22 @@ class _HomeState extends State<Home> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom:30.0),
+            padding: const EdgeInsets.only(bottom: 30.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("0", style: TextStyle(color: Colors.white,
-                    fontSize: 100.0,
-                    fontWeight: FontWeight.bold),),
-                SizedBox(height: 50.0,),
+                FittedBox(
+                  child: Text(
+                    "242331",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 75.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 70.0,
+                ),
                 GestureDetector(
                   child: Icon(
                     Icons.play_circle_outline,
@@ -38,10 +46,19 @@ class _HomeState extends State<Home> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 70.0,),
-                Text("High score:\n23931", style: TextStyle(color: Colors.white,
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                SizedBox(
+                  height: 70.0,
+                ),
+                FittedBox(
+                  child: Text(
+                    "High score:\n23931",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
           ),
