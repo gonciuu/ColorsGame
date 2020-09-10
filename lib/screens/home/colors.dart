@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
 
-class Colors extends StatefulWidget {
+class GameColors extends StatefulWidget {
   @override
-  _ColorsState createState() => _ColorsState();
+  _GameColorsState createState() => _GameColorsState();
 }
 
-class _ColorsState extends State<Colors> {
+class _GameColorsState extends State<GameColors> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      children: <Widget>[
+        Flexible(
+            child: Container(color: Colors.amber), fit: FlexFit.tight),
+        Flexible(
+            child: Container(color: Colors.blueAccent),
+            fit: FlexFit.tight)
+      ],
+    );
   }
 }
