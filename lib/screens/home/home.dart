@@ -29,11 +29,11 @@ class _HomeState extends State<Home> {
               children: [
                 FittedBox(
                   child: Text(
-                    "242331",
+                    "23234",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 75.0,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 70.0,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 SizedBox(
@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 45.0,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                     textAlign: TextAlign.center,
                   ),
                 ),
