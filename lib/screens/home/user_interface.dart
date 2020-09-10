@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 
 class UserInterface extends StatefulWidget {
   @override
@@ -15,15 +13,6 @@ class _UserInterfaceState extends State<UserInterface> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FittedBox(
-            child: Text(
-              "23234",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 70.0,
-                  fontWeight: FontWeight.w700),
-            ),
-          ),
           SizedBox(
             height: 70.0,
           ),

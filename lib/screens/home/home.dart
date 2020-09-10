@@ -1,6 +1,7 @@
 import 'dart:math';
 
-import 'package:color_run/screens/home/user_interface.dart';
+import './points.dart';
+import './user_interface.dart';
 
 import './colors.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-  Color drawColor(){
-    return Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
+  Color drawColor() {
+    return Color.fromRGBO(
+        Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,13 @@ class _HomeState extends State<Home> {
         alignment: Alignment.center,
         children: <Widget>[
           GameColors(drawColor()),
-          UserInterface()
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Points(),
+              UserInterface()
+            ],
+          )
         ],
       ),
     );
