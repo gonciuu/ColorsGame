@@ -13,17 +13,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+
   bool isStart = false;
 
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
-  void startGame() => setState(() => isStart = !isStart);
+
+  void startGame() => setState(() => isStart = true);
+  void endGame() => setState(() => isStart = false);
+
 
   void playGame() => setState((){
-    //dodawanie punktow
+
   });
 
   void loss (){
-    startGame();
+    endGame();
     //zerowanie punktow
   }
 
