@@ -14,7 +14,7 @@ class GameColors extends StatefulWidget {
 
 class _GameColorsState extends State<GameColors> {
 
-  int points = 0;
+
   int startTime = 0;
 
 
@@ -22,16 +22,7 @@ class _GameColorsState extends State<GameColors> {
   double randomDarker = Random().nextDouble() * (0.05 - 0.015) + 0.015;
 
 
-  void calculatePoints(int timeDifference) {
-     if(timeDifference>=5000 && timeDifference<8000){
-        points+=500;
-     }else if(timeDifference>=8000){
-       points++;
-     }else{
-       points+=(5000-timeDifference);
-     }
-     print(points);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +43,7 @@ class _GameColorsState extends State<GameColors> {
         fit: FlexFit.tight);
 
     final Widget light = Flexible(child: GestureDetector(child: Container(color: widget.color),onTap: (){
-      widget.playGame();
-      calculatePoints(DateTime.now().millisecondsSinceEpoch - startTime);
+      widget.playGame(DateTime.now().millisecondsSinceEpoch - startTime);
     },), fit: FlexFit.tight);
 
     int colorRandomContainer = randomContainer();

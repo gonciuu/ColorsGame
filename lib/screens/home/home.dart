@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  int points = 0;
 
   bool isStart = false;
 
@@ -22,13 +23,19 @@ class _HomeState extends State<Home> {
   void endGame() => setState(() => isStart = false);
 
 
-  void playGame() => setState((){
-
+  void playGame(int timeDifference) => setState((){
+    if(timeDifference>=5000 && timeDifference<8000){
+      points+=500;
+    }else if(timeDifference>=8000){
+      points++;
+    }else{
+      points+=(5000-timeDifference);
+    }
   });
 
   void loss (){
+    points = 0;
     endGame();
-    //zerowanie punktow
   }
 
 
@@ -43,7 +50,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
               Padding(padding: EdgeInsets.only(top: !isStart ? 0.0 : MediaQuery.of(context).size.height * 0.12),) ,
-              Points(),
+              Points(points),
               if(!isStart) UserInterface(startGame)
             ],
           )
