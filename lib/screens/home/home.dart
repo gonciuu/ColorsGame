@@ -14,8 +14,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   bool isStart = false;
+
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
   void startGame() => setState(() => isStart = !isStart);
+
+  void playGame() => setState((){});
 
 
   @override
@@ -24,7 +27,7 @@ class _HomeState extends State<Home> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          GameColors(drawColor()),
+          GameColors(drawColor(),playGame),
           Column(
             mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
