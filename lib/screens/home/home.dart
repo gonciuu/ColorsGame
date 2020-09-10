@@ -14,9 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   bool isStart = false;
-
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
-
   void startGame() => setState(() => isStart = !isStart);
 
 
