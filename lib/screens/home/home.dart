@@ -18,7 +18,14 @@ class _HomeState extends State<Home> {
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
   void startGame() => setState(() => isStart = !isStart);
 
-  void playGame() => setState((){});
+  void playGame() => setState((){
+    //dodawanie punktow
+  });
+
+  void loss (){
+    startGame();
+    //zerowanie punktow
+  }
 
 
   @override
@@ -27,7 +34,7 @@ class _HomeState extends State<Home> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          GameColors(drawColor(),playGame),
+          !isStart ? GameColors(color:drawColor(),playGame: (){},loss: (){}) : GameColors(color: drawColor(),playGame: playGame,loss: loss,),
           Column(
             mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [

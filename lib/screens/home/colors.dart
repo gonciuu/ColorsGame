@@ -2,17 +2,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class GameColors extends StatefulWidget {
-  final Color _color;
-  final Function _playGame;
+  final Color color;
+  final Function playGame;
+  final Function loss;
 
-  GameColors(this._color, this._playGame);
+  GameColors({this.color, this.playGame,this.loss});
 
   @override
   _GameColorsState createState() => _GameColorsState();
 }
 
 class _GameColorsState extends State<GameColors> {
-  
+
   int randomContainer() => Random().nextInt(2);
   double randomDarker = Random().nextDouble() * (0.05 - 0.015) + 0.015;
 
@@ -21,11 +22,11 @@ class _GameColorsState extends State<GameColors> {
     final Widget dark = Flexible(
         child: Stack(
           children: [
-            Container(color: widget._color),
+            Container(color: widget.color),
             GestureDetector(
               child: Container(color: Color.fromRGBO(0, 0, 0, randomDarker)),
               onTap: () {
-                widget._playGame();
+                widget.loss();
                 print(randomContainer());
               },
             ),
@@ -33,8 +34,8 @@ class _GameColorsState extends State<GameColors> {
         ),
         fit: FlexFit.tight);
 
-    final Widget light = Flexible(child: GestureDetector(child: Container(color: widget._color),onTap: (){
-      widget._playGame();
+    final Widget light = Flexible(child: GestureDetector(child: Container(color: widget.color),onTap: (){
+      widget.playGame();
     },), fit: FlexFit.tight);
 
     int colorRandomContainer = randomContainer();
