@@ -12,10 +12,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Color drawColor() {
-    return Color.fromRGBO(
-        Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
-  }
+
+  bool isStart = false;
+
+  Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
+
+  void startGame() => setState(() => isStart = !isStart);
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +28,11 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           GameColors(drawColor()),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
+              Padding(padding: EdgeInsets.only(top: !isStart ? 0.0 : MediaQuery.of(context).size.height * 0.12),) ,
               Points(),
-              UserInterface()
+              if(!isStart) UserInterface(startGame)
             ],
           )
         ],

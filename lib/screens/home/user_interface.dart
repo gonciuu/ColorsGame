@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class UserInterface extends StatefulWidget {
+
+  final Function startGame;
+  UserInterface(this.startGame);
+
   @override
   _UserInterfaceState createState() => _UserInterfaceState();
 }
@@ -17,6 +21,7 @@ class _UserInterfaceState extends State<UserInterface> {
             height: 70.0,
           ),
           GestureDetector(
+            onTap: widget.startGame,
             child: Icon(
               Icons.play_circle_outline,
               size: 180.0,
