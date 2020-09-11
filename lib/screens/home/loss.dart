@@ -21,7 +21,7 @@ class Loss extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 40.0,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w700),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height *0.05,),
@@ -32,17 +32,17 @@ class Loss extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 30.0,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height *0.05,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(child: Icon(Icons.play_circle_outline,color: Colors.white,size: 110.0,),onTap: (){
+            GestureDetector(child: Icon(Icons.play_circle_outline,color: Colors.white,size: 120.0,),onTap: (){
               playAgain();
             },),
-            Icon(Icons.supervised_user_circle,color: Colors.white,size: 110.0,),
+            Icon(Icons.supervised_user_circle,color: Colors.white,size: 120.0,),
           ],
         )
       ],
