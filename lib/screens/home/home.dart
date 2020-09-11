@@ -23,7 +23,9 @@ class _HomeState extends State<Home> {
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
 
   void startGame() => setState(() => isStart = true);
-  void endGame() => setState(() {
+
+  void playAgain() => setState(() {
+    points = 0;
     isStart = false;
     isLoss = false;
   });
@@ -39,9 +41,10 @@ class _HomeState extends State<Home> {
   });
 
   void loss (){
-    points = 0;
-    setState(() => isLoss = true);
-    //endGame();
+    setState(() {
+      isLoss = true;
+      isStart = false;
+    } );
   }
 
   @override
@@ -59,7 +62,7 @@ class _HomeState extends State<Home> {
               Points(points),
               if(!isStart) UserInterface(startGame)
             ],
-          ): Loss()
+          ): Loss(playAgain: playAgain, points: points,)
         ],
       ),
     );
