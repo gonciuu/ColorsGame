@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:color_run/screens/home/loss.dart';
+import './loss.dart';
 
 import './points.dart';
 import './user_interface.dart';
