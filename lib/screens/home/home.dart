@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:color_run/screens/home/loss.dart';
+
 import './points.dart';
 import './user_interface.dart';
 
@@ -16,12 +18,15 @@ class _HomeState extends State<Home> {
   int points = 0;
 
   bool isStart = false;
+  bool isLoss = false;
 
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
 
   void startGame() => setState(() => isStart = true);
-  void endGame() => setState(() => isStart = false);
-
+  void endGame() => setState(() {
+    isStart = false;
+    isLoss = false;
+  });
 
   void playGame(int timeDifference) => setState((){
     if(timeDifference>=5000 && timeDifference<8000){
@@ -35,9 +40,9 @@ class _HomeState extends State<Home> {
 
   void loss (){
     points = 0;
-    endGame();
+    setState(() => isLoss = true);
+    //endGame();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class _HomeState extends State<Home> {
         alignment: Alignment.center,
         children: <Widget>[
           !isStart ? GameColors(color:drawColor(),playGame: (){},loss: (){}) : GameColors(color: drawColor(),playGame: playGame,loss: loss,),
+          !isLoss?
           Column(
             mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
@@ -53,7 +59,7 @@ class _HomeState extends State<Home> {
               Points(points),
               if(!isStart) UserInterface(startGame)
             ],
-          )
+          ): Loss()
         ],
       ),
     );
