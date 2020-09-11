@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class Loss extends StatelessWidget {
 
-  final int points;
-  final Function playAgain;
+  final int points;             //points which user gets in game
+  final Function playAgain;     //play again in game
+
   Loss({this.points,this.playAgain});
 
   @override
@@ -30,7 +31,7 @@ class Loss extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.bold),
           ),
         ),

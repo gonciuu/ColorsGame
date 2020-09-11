@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Points extends StatelessWidget {
+  //screen to show points
   final int points;
   Points(this.points);
   @override

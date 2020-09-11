@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class UserInterface extends StatefulWidget {
 
+  //start game
   final Function startGame;
   UserInterface(this.startGame);
 

@@ -17,20 +17,26 @@ class _HomeState extends State<Home> {
 
   int points = 0;
 
-  bool isStart = false;
-  bool isLoss = false;
+  bool isStart = false; //bool which check if user start game using play icon button
 
+  bool isLoss = false;  //bool which check if user loss the game (show loss screen)
+
+  //generage random color
   Color drawColor() => Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1);
 
+
+  //start the game
   void startGame() => setState(() => isStart = true);
 
+  //play again (show again ui and play button (called in loss screen))
   void playAgain() => setState(() {
     points = 0;
     isStart = false;
     isLoss = false;
   });
 
-  void playGame(int timeDifference) => setState((){
+  //calculate the points by time difference between clicked
+  void calculatePoints(int timeDifference) => setState((){
     if(timeDifference>=5000 && timeDifference<8000){
       points+=500;
     }else if(timeDifference>=8000){
@@ -40,6 +46,7 @@ class _HomeState extends State<Home> {
     }
   });
 
+  //loss the game (show loss screen on screen and stop clicked on containers)
   void loss (){
     setState(() {
       isLoss = true;
@@ -53,8 +60,8 @@ class _HomeState extends State<Home> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          !isStart ? GameColors(color:drawColor(),playGame: (){},loss: (){}) : GameColors(color: drawColor(),playGame: playGame,loss: loss,),
-          !isLoss?
+          !isStart ? GameColors(color:drawColor(),calculatePoints: (){},loss: (){} /*dont play game (cannot get points)*/) : GameColors(color: drawColor(),calculatePoints: calculatePoints,loss: loss,/* play game (can get points)*/),
+          !isLoss?  /*check if loss to show loss screen*/
           Column(
             mainAxisAlignment: !isStart ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
