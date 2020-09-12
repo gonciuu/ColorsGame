@@ -9,13 +9,12 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   final Authentication _authentication = Authentication();
 
-  void showBottomSnackBar(Widget content) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: content));
-  }
+  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content));
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class _LoginFormState extends State<LoginForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-                controller: emailController,
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.white),
                 decoration: InputLoginTextDecoration.copyWith(
@@ -38,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
               height: 15.0,
             ),
             TextFormField(
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: true,
                 style: TextStyle(color: Colors.white),
                 decoration: InputLoginTextDecoration.copyWith(
@@ -53,13 +52,13 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(244, 13, 193, 1),
                 onPressed: () async {
-                  dynamic user = await _authentication.loginWithEmailAndPassword(emailController.text, passwordController.text);
-                  if (user is String) {
-                    showBottomSnackBar(Text(user));
+                  dynamic result = await _authentication.loginWithEmailAndPassword(_emailController.text, _passwordController.text);
+                  if (result is String) {
+                    showBottomSnackBar(Text(result));
                   } else {
-                    print((user as AuthResult).user.uid);
+                    print((result as AuthResult).user.uid);
                   }
-                },
+                },  
                 child: Text(
                   "Login",
                   style: TextStyle(
