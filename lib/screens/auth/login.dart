@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Login extends StatefulWidget {
   final Function register;
@@ -19,6 +20,7 @@ class _LoginState extends State<Login> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset('assets/images/logo.png',scale: MediaQuery.of(context).size.height * 0.005,),SizedBox(height: 20.0,),
           Text(
             "Welcome Back",
             style: TextStyle(
@@ -68,7 +70,7 @@ class _LoginState extends State<Login> {
                           borderSide: BorderSide.none),
                       hintText: 'Enter password',
                     ),
-                  ),SizedBox(height: 40.0,),
+                  ),SizedBox(height: 30.0,),
                   Container(
                     width: double.infinity,
                     child: FlatButton(
@@ -80,6 +82,21 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700
+                        ),
+                      ),
+                    ),
+                  ),SizedBox(height: 15.0,),
+                  Container(
+                    width: double.infinity,
+                    child: FlatButton(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      color: Color.fromRGBO(170, 138, 183, 1),
+                      onPressed: () {  },
+                      child: Text(
+                        "Login with google",
+                        style: TextStyle(
+                            color: Color.fromRGBO(34, 12, 44, 1),
+                            fontWeight: FontWeight.w700
                         ),
                       ),
                     ),
