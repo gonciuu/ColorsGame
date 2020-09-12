@@ -1,9 +1,12 @@
 
+import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:flutter/material.dart';
 
 
 class LoginForm extends StatelessWidget {
+
+  final Authentication _authentication = Authentication();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -28,7 +31,9 @@ class LoginForm extends StatelessWidget {
               child: FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(244, 13, 193, 1),
-                onPressed: () {  },
+                onPressed: () async{
+                 await  _authentication.registerWithEmailAndPassword("janek@onet.pl", "wejfwhfu213Qa");
+                },
                 child: Text(
                   "Login",
                   style: TextStyle(
