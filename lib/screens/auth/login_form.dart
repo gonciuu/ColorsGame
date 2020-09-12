@@ -1,4 +1,5 @@
 
+import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,32 +16,12 @@ class LoginForm extends StatelessWidget {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20.0),
-                filled: true,
-                fillColor: Color.fromRGBO(72, 47, 82, 1),
-                hintStyle: TextStyle(
-                    color: Colors.grey[400]
-                ),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none),
-                hintText: 'Enter email',
-              ),
+              decoration:  InputLoginTextDecoration.copyWith(hintText:"Enter Email",hintStyle: TextStyle(color: Colors.grey[400]),)
             ),SizedBox(height: 15.0,),
             TextFormField(
               obscureText: true,
               style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20.0),
-                filled: true,
-                fillColor: Color.fromRGBO(72, 47, 82, 1),
-                hintStyle: TextStyle(
-                    color: Colors.grey[400]
-                ),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none),
-                hintText: 'Enter password',
-              ),
+                decoration:  InputLoginTextDecoration.copyWith(hintText:"Enter Password",hintStyle: TextStyle(color: Colors.grey[400]),)
             ),SizedBox(height: 30.0,),
             Container(
               width: double.infinity,

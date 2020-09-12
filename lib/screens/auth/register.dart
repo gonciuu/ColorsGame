@@ -2,10 +2,11 @@ import './register_form.dart';
 
 import 'package:flutter/material.dart';
 
-
 class Register extends StatefulWidget {
   final Function login;
+
   Register(this.login);
+
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -48,13 +49,14 @@ class _RegisterState extends State<Register> {
             ),
           ),
           SizedBox(
-            height: 50.0,
+            height: 40.0,
           ),
           RegisterForm(),
           SizedBox(
             height: 4.0,
           ),
           GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () => widget.login(),
             child: FittedBox(
               child: Text(
