@@ -14,6 +14,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(34, 12, 44, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
