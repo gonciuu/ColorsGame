@@ -9,11 +9,15 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  //handle email and password
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  //logging
   final Authentication _authentication = Authentication();
 
-  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content));
+  //show snack bar in bottom
+  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
 
 
   @override

@@ -12,11 +12,15 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
 
+  //handle email and password
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  //registering
   final Authentication _authentication = Authentication();
 
-  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content));
+  //show snakbar in bottom
+  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
 
   @override
   Widget build(BuildContext context) {

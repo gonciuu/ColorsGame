@@ -7,6 +7,7 @@ class Authentication{
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  //register user with email and password
   Future registerWithEmailAndPassword(String email,String password) async{
     try{
       return await auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -18,7 +19,7 @@ class Authentication{
       }
     }
   }
-
+  //login user with email and password
   Future loginWithEmailAndPassword(String email,String password) async{
     try{
       return await auth.signInWithEmailAndPassword(email: email, password: password);
@@ -31,6 +32,7 @@ class Authentication{
     }
   }
 
+  //listen to auth state changes
   Stream<FirebaseUser> get user => auth.onAuthStateChanged;
 
 }

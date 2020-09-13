@@ -2,8 +2,9 @@ import './login_form.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-  final Function register;
 
+  //change screen to register
+  final Function register;
   Login(this.register);
 
   @override
