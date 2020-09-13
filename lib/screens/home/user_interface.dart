@@ -15,8 +15,9 @@ class UserInterface extends StatefulWidget {
 class _UserInterfaceState extends State<UserInterface> {
   final Authentication _authentication = Authentication();
 
+  //--------show confirm dialog on log out from the app--------
   Future logOut() async {
-    var dialog = AlertDialog(
+    final Widget dialog = AlertDialog(
       backgroundColor: Color.fromRGBO(34, 12, 44, 1),
       title: Text(
         "Log Out?",
@@ -31,6 +32,7 @@ class _UserInterfaceState extends State<UserInterface> {
       actions: [
         FlatButton(
           highlightColor: Color.fromRGBO(40, 12, 44, 1),
+          //close the dialog
           onPressed: () => Navigator.pop(context),
           child: Text(
             "Cancel",
@@ -44,11 +46,13 @@ class _UserInterfaceState extends State<UserInterface> {
         FlatButton(
           highlightColor: Color.fromRGBO(40, 12, 44, 1),
           onPressed: () async {
-            try {
-              Navigator.pop(context);
-              await _authentication.logOut();
-            } catch (e) {
-              Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.toString()),));
+            //logout from the app
+            Navigator.pop(context);
+            dynamic result = await _authentication.logOut();
+            if (result is String) {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(result),
+              ));
             }
           },
           child: Text(
@@ -62,11 +66,8 @@ class _UserInterfaceState extends State<UserInterface> {
         )
       ],
     );
+    //show the dialog
     await showDialog(context: context, child: dialog);
-    // dynamic result = await _authentication.logOut();
-    //if (result is String) {
-    //   Scaffold.of(context).showSnackBar(SnackBar(content: Text(result)));
-    // }
   }
 
   @override
