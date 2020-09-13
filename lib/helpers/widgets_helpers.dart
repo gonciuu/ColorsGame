@@ -17,12 +17,14 @@ class WidgetHelpers {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  message,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600),
+                FittedBox(
+                  child: Text(
+                    message,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
                 SizedBox(
                   height: 7.0,

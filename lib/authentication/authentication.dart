@@ -35,4 +35,17 @@ class Authentication{
   //listen to auth state changes
   Stream<FirebaseUser> get user => auth.onAuthStateChanged;
 
+  //logout
+  Future logOut() async{
+    try{
+      return await auth.signOut();
+    }catch(e){
+      if(e is PlatformException){
+        return (e).message;
+      }else{
+        return e.toString();
+      }
+    }
+  }
+
 }

@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
               Points(points),
               if(!isStart) UserInterface(startGame)
             ],
-          ): Loss(playAgain: playAgain, points: points,)
+          ): Loss(playAgain: playAgain, points: points,)  /*loss game*/
         ],
       ),
     );
