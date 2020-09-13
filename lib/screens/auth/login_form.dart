@@ -1,7 +1,10 @@
 import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
+import 'package:color_run/helpers/widgets_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -17,11 +20,15 @@ class _LoginFormState extends State<LoginForm> {
   final Authentication _authentication = Authentication();
 
   //show snack bar in bottom
-  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
+  void _showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
+
 
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog _progressDialog = WidgetHelpers().getDialogLinearDialog(context, "Login in...");
+
+
     return Form(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
@@ -56,9 +63,11 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(244, 13, 193, 1),
                 onPressed: () async {
+                  await _progressDialog.show();
                   dynamic result = await _authentication.loginWithEmailAndPassword(_emailController.text, _passwordController.text);
+                  await _progressDialog.hide();
                   if (result is String) {
-                    showBottomSnackBar(Text(result));
+                    _showBottomSnackBar(Text(result));
                   } else {
                     print((result as AuthResult).user.uid);
                   }
