@@ -1,11 +1,13 @@
-import 'package:color_run/screens/settings/change_nickname.dart';
+import './change_nickname.dart';
 import 'package:flutter/material.dart';
+
+import './log_out.dart';
 
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(25,30,25,20),
+      padding: const EdgeInsets.fromLTRB(25,30,25,30),
       child: Column(
         children: [
           Text("Change Nickname",style: TextStyle(
@@ -14,6 +16,7 @@ class Settings extends StatelessWidget {
             fontWeight: FontWeight.w600
           ),),SizedBox(height: 20,),
           ChangeNickname(),
+          Spacer(),
           LogOut()
         ],
       ),
