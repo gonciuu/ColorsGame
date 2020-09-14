@@ -6,6 +6,4 @@ class Database{
   final CollectionReference highScores = Firestore.instance.collection("high_scores");
 
 
-
-
 }

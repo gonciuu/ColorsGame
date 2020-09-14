@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Loss extends StatelessWidget {
-
   final int points;             //points which user gets in game
   final Function playAgain;     //play again in game
 
