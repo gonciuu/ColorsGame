@@ -1,4 +1,5 @@
 import 'package:color_run/authentication/authentication.dart';
+import 'package:color_run/screens/settings/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +71,15 @@ class _UserInterfaceState extends State<UserInterface> {
     await showDialog(context: context, child: dialog);
   }
 
+  Future showBottomSettings() async{
+     await showModalBottomSheet(
+         shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(10.0),
+         ),
+         backgroundColor: Color.fromRGBO(34, 12, 44, 1),
+         context: context, builder: (context) => Settings());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -117,11 +127,12 @@ class _UserInterfaceState extends State<UserInterface> {
               ),
               GestureDetector(
                 child: Icon(
-                  Icons.exit_to_app,
+                  Icons.settings,
                   size: 70.0,
                   color: Colors.white,
                 ),
-                onTap: () async => logOut(),
+                onTap: () async => showBottomSettings()
+                //onTap: () async => logOut(),
               ),
             ],
           )
