@@ -17,7 +17,7 @@ class User {
     return mapToReturn;
   }
 
-  User highScoreFromMap(Map<String, dynamic> map) {
+  User userFromMap(Map<String, dynamic> map) {
     return User(
       uid: map['uid'],
       nickName: map['nickName'],

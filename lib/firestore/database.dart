@@ -29,4 +29,14 @@ class Database{
     }
   }
 
+  Future<User> getUserInfo(String uid) async{
+    try{
+      DocumentSnapshot snapshot = await users.document(uid).get();
+      User user = User(uid: null, nickName: null,highScore: null);
+      return user.userFromMap(snapshot.data);
+    }catch(e){
+      return null;
+    }
+  }
+
 }

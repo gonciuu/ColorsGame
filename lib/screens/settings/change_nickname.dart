@@ -1,4 +1,7 @@
+import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
+import 'package:color_run/firestore/database.dart';
+import 'package:color_run/models/user.dart';
 import 'package:flutter/material.dart';
 
 class ChangeNickname extends StatefulWidget {
@@ -7,15 +10,24 @@ class ChangeNickname extends StatefulWidget {
 }
 
 class _ChangeNicknameState extends State<ChangeNickname> {
-  final _emailController = TextEditingController(text: "Janek213");
+  final _nickController = TextEditingController(text: "Loading username...");
+  final Database _database = Database();
+
+  Future getUserNick() async{
+    dynamic result = await _database.getUserInfo(await Authentication().getUserId());
+    if(result!=null){
+     _nickController.text = (result as User).nickName;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getUserNick();
     return Form(
       child: Column(
         children: [
           TextFormField(
-              controller: _emailController,
+              controller: _nickController,
               cursorColor: Colors.purple,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.white),
@@ -28,7 +40,9 @@ class _ChangeNicknameState extends State<ChangeNickname> {
             child: FlatButton(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               color: Color.fromRGBO(244, 13, 193, 1),
-              onPressed: () {},
+              onPressed: () async{
+                  
+              },
               child: Text(
                 "Change",
                 style: TextStyle(
