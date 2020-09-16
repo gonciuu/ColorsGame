@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:color_run/authentication/authentication.dart';
+import 'package:color_run/firestore/database.dart';
+
 import './loss.dart';
 
 import './points.dart';
@@ -53,9 +56,18 @@ class _HomeState extends State<Home> {
       isStart = false;
     } );
   }
+  final Database _database = Database();
+
+  Future checkContains() async
+  {
+    print(await Authentication().getUserId());
+    print(await _database.checkUserContains(await Authentication().getUserId()));
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    checkContains();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
