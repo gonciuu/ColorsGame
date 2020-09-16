@@ -39,4 +39,12 @@ class Database{
     }
   }
 
+  Future updateNick(String newNick,String uid) async{
+    try{
+      return await users.document(uid).updateData({"nickName":newNick});
+    }catch(e){
+      return e.toString();
+    }
+  }
+
 }

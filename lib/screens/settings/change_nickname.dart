@@ -2,6 +2,7 @@ import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:color_run/firestore/database.dart';
 import 'package:color_run/models/user.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class ChangeNickname extends StatefulWidget {
@@ -21,8 +22,13 @@ class _ChangeNicknameState extends State<ChangeNickname> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getUserNick();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Form(
       child: Column(
         children: [
@@ -41,7 +47,13 @@ class _ChangeNicknameState extends State<ChangeNickname> {
               padding: EdgeInsets.symmetric(vertical: 20.0),
               color: Color.fromRGBO(244, 13, 193, 1),
               onPressed: () async{
-                  
+               dynamic result = await _database.updateNick(_nickController.text,await Authentication().getUserId());
+               if(result is String) {
+                 //cos tu bedzie
+                 print(result);
+               }else{
+                 Navigator.pop(context);
+               }
               },
               child: Text(
                 "Change",
