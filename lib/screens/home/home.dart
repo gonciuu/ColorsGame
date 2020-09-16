@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:color_run/firestore/database.dart';
+import 'package:color_run/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
 import './loss.dart';
@@ -61,69 +62,71 @@ class _HomeState extends State<Home> {
   }
 
   final Database _database = Database();
+  final _nickController = TextEditingController();
 
   Future checkContains() async {
-
-    final _nickController = TextEditingController();
     dynamic uid = await Authentication().getUserId();
     dynamic result = await _database.checkUserContains(uid);
 
     if (uid is String && result != null) {
-      if (result == true) {
+      if (result == false) {
         await showDialog(
             barrierDismissible: false,
             context: context,
-            builder: (context) => AlertDialog(
-                  backgroundColor: Color.fromRGBO(34, 12, 44, 1),
-                  title: Text(" Nickname",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700)),
-                  content: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(" Enter Nickname",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600)),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextField(
-                        controller: _nickController,
-                        style: TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
-                        decoration: InputLoginTextDecoration.copyWith(
-                          hintText: "Enter Nick",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(top: 15.0),
-                        child: FlatButton(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                          color: Color.fromRGBO(244, 13, 193, 1),
-                          onPressed: () async {
-                            Navigator.pop(context);
-
-                          },
-                          child: Text(
-                            "Save",
+            builder: (context) => WillPopScope(
+              onWillPop: (){},
+              child: AlertDialog(
+                    backgroundColor: Color.fromRGBO(34, 12, 44, 1),
+                    title: Text(" Nickname",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700)),
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(" Enter Nickname",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w700),
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        TextField(
+                          controller: _nickController,
+                          style: TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          decoration: InputLoginTextDecoration.copyWith(
+                            hintText: "Enter Nick",
+                            hintStyle: TextStyle(color: Colors.grey[400]),
                           ),
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(top: 15.0),
+                          child: FlatButton(
+                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                            color: Color.fromRGBO(244, 13, 193, 1),
+                            onPressed: () async {
+                              await _database.insertUser(User(nickName: _nickController.text,uid: uid,highScore: 0).userMap());
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ));
+            ));
       } else {
-        print("FALSEEE");
+        print("TRUE");
       }
     }
   }

@@ -21,10 +21,12 @@ class Database{
     }
   }
 
-  
-
-
-
-
+  Future insertUser(Map<String,dynamic> userMap) async{
+    try{
+      return await users.document(userMap['uid']).setData(userMap);
+    }catch(e){
+      return null;
+    }
+  }
 
 }
