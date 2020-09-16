@@ -8,13 +8,18 @@ class Database{
 
 
   Future<bool> checkUserContains(String uid) async{
-    DocumentSnapshot snapshot = await users.document(uid).get();
-    if(snapshot.exists){
-      return true;
+    try{
+      DocumentSnapshot snapshot = await users.document(uid).get();
+      if(snapshot.exists){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }catch(e){
+      return null;
     }
-    else{
-      return false;
-    }
+
   }
 
 
