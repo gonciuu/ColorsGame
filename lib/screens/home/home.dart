@@ -63,12 +63,15 @@ class _HomeState extends State<Home> {
   final Database _database = Database();
 
   Future checkContains() async {
+
+    final _nickController = TextEditingController();
     dynamic uid = await Authentication().getUserId();
     dynamic result = await _database.checkUserContains(uid);
+
     if (uid is String && result != null) {
       if (result == true) {
-        print("TRUEEE");
         await showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (context) => AlertDialog(
                   backgroundColor: Color.fromRGBO(34, 12, 44, 1),
@@ -90,6 +93,7 @@ class _HomeState extends State<Home> {
                         height: 5.0,
                       ),
                       TextField(
+                        controller: _nickController,
                         style: TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         decoration: InputLoginTextDecoration.copyWith(
@@ -103,7 +107,10 @@ class _HomeState extends State<Home> {
                         child: FlatButton(
                           padding: EdgeInsets.symmetric(vertical: 20.0),
                           color: Color.fromRGBO(244, 13, 193, 1),
-                          onPressed: () async {},
+                          onPressed: () async {
+                            Navigator.pop(context);
+
+                          },
                           child: Text(
                             "Save",
                             style: TextStyle(
