@@ -58,14 +58,13 @@ class _HomeState extends State<Home> {
 
   //loss the game (show loss screen on screen and stop clicked on containers)
   void loss() async {
+    dynamic uid = await Authentication().getUserId();
+    await _database.updateHighScore(points, uid);
     setState(() {
       isLoss = true;
       isStart = false;
       //save points to firestore
     });
-    dynamic uid = await Authentication().getUserId();
-
-    await _database.updateHighScore(points, uid);
   }
 
   //----------------check if user is arleady in firestore if not ask about nick and save him into database---------------
@@ -140,6 +139,17 @@ class _HomeState extends State<Home> {
     }
   }
 
+  //get user info object
+  Future getHighScore() async{
+    dynamic result = await _database.getUserInfo(await Authentication().getUserId());
+    if(result!=null){
+      return (result as User).highScore;
+    }else{
+      print(result);
+      return 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     checkContains();
@@ -172,12 +182,13 @@ class _HomeState extends State<Home> {
                               : MediaQuery.of(context).size.height * 0.12),
                     ),
                     Points(points),
-                    if (!isStart) UserInterface(startGame)
+                    if (!isStart) UserInterface(startGame,getHighScore)
                   ],
                 )
               : Loss(
                   playAgain: playAgain,
                   points: points,
+                  getHighScore : getHighScore
                 ) /*loss game*/
         ],
       ),

@@ -1,11 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Loss extends StatelessWidget {
+class Loss extends StatefulWidget {
   final int points;             //points which user gets in game
   final Function playAgain;     //play again in game
+  final Function getHighScore;     //play again in game
 
-  Loss({this.points,this.playAgain});
+  Loss({this.points,this.playAgain,this.getHighScore});
+
+  @override
+  _LossState createState() => _LossState();
+}
+
+class _LossState extends State<Loss> {
+
+  //get user actual high score
+  int highScore = 0;
+
+  Future userHighScore()async{
+    this.highScore = await widget.getHighScore();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userHighScore();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +36,7 @@ class Loss extends StatelessWidget {
       children: [
         FittedBox(
           child: Text(
-            "Your score :\n$points",
+            "Your score :\n${widget.points}",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white,
@@ -26,7 +47,7 @@ class Loss extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).size.height *0.05,),
         FittedBox(
           child: Text(
-            "Your high-score :\n34324324",
+            "Your high-score :\n$highScore",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white,
@@ -39,7 +60,7 @@ class Loss extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(child: Icon(Icons.play_circle_outline,color: Colors.white,size: 120.0,),onTap: (){
-              playAgain();
+              widget.playAgain();
             },),
             Icon(Icons.supervised_user_circle,color: Colors.white,size: 120.0,),
           ],

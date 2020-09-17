@@ -1,4 +1,6 @@
 import 'package:color_run/authentication/authentication.dart';
+import 'package:color_run/firestore/database.dart';
+import 'package:color_run/models/user.dart';
 import 'package:color_run/screens/settings/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,9 @@ import 'package:flutter/material.dart';
 class UserInterface extends StatefulWidget {
   //start game
   final Function startGame;
+  final Function getHighScore;
 
-  UserInterface(this.startGame);
+  UserInterface(this.startGame,this.getHighScore);
 
   @override
   _UserInterfaceState createState() => _UserInterfaceState();
@@ -16,6 +19,9 @@ class UserInterface extends StatefulWidget {
 class _UserInterfaceState extends State<UserInterface> {
 
 
+  int highScore = 0;
+
+  //show bottom settings sheet
   Future showBottomSettings() async{
      await showModalBottomSheet(
          shape: RoundedRectangleBorder(
@@ -23,6 +29,19 @@ class _UserInterfaceState extends State<UserInterface> {
          ),
          backgroundColor: Color.fromRGBO(34, 12, 44, 1),
          context: context, builder: (context) => Settings());
+  }
+
+
+  //get user highscore from future function in int state
+  Future userHighScore()async{
+      highScore = await widget.getHighScore();
+      setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userHighScore();
   }
 
   @override
@@ -48,7 +67,7 @@ class _UserInterfaceState extends State<UserInterface> {
           ),
           FittedBox(
             child: Text(
-              "High score:\n23931",
+              "High score:\n$highScore",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 45.0,
@@ -85,4 +104,5 @@ class _UserInterfaceState extends State<UserInterface> {
       ),
     );
   }
+
 }
