@@ -2,7 +2,6 @@ import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:color_run/firestore/database.dart';
 import 'package:color_run/models/user.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class ChangeNickname extends StatefulWidget {
@@ -11,8 +10,10 @@ class ChangeNickname extends StatefulWidget {
 }
 
 class _ChangeNicknameState extends State<ChangeNickname> {
-  final _nickController = TextEditingController(text: "Loading username...");
+  TextEditingController _nickController = TextEditingController(text: "Loading username...");
   final Database _database = Database();
+
+  String changeResult = "";
 
   Future getUserNick() async{
     dynamic result = await _database.getUserInfo(await Authentication().getUserId());
@@ -39,6 +40,8 @@ class _ChangeNicknameState extends State<ChangeNickname> {
               style: TextStyle(color: Colors.white),
               decoration: InputLoginTextDecoration.copyWith(
                 hintText: "Change nickname",
+                counterText: changeResult,
+                counterStyle: TextStyle(color: Colors.grey[200]),
                 hintStyle: TextStyle(color: Colors.grey[400]),
               )),SizedBox(height: 15,),
           Container(
@@ -49,10 +52,11 @@ class _ChangeNicknameState extends State<ChangeNickname> {
               onPressed: () async{
                dynamic result = await _database.updateNick(_nickController.text,await Authentication().getUserId());
                if(result is String) {
-                 //cos tu bedzie
+                 setState(() => changeResult = result);
                  print(result);
                }else{
-                 Navigator.pop(context);
+                 setState(() => changeResult = "Nick has been changed");
+                 Future.delayed(const Duration(seconds: 2), () => Navigator.pop(context));
                }
               },
               child: Text(
@@ -65,5 +69,12 @@ class _ChangeNicknameState extends State<ChangeNickname> {
         ],
       ),
     );
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nickController = TextEditingController(text: "Loading username...");
   }
 }
