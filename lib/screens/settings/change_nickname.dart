@@ -15,12 +15,14 @@ class _ChangeNicknameState extends State<ChangeNickname> {
 
   String changeResult = "";
 
+  //--------------get user active nickname and setup it into textfield------------------
   Future getUserNick() async{
     dynamic result = await _database.getUserInfo(await Authentication().getUserId());
     if(result!=null){
      _nickController.text = (result as User).nickName;
     }
   }
+  //=====================================================================================
 
   @override
   void initState() {

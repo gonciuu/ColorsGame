@@ -20,7 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final Database _database = Database();
   final _nickController = TextEditingController();
 
@@ -58,7 +57,7 @@ class _HomeState extends State<Home> {
       });
 
   //loss the game (show loss screen on screen and stop clicked on containers)
-  void loss() async{
+  void loss() async {
     setState(() {
       isLoss = true;
       isStart = false;
@@ -66,11 +65,10 @@ class _HomeState extends State<Home> {
     });
     dynamic uid = await Authentication().getUserId();
 
-    dynamic result = await _database.updateHighScore(points, uid);
-    
+    await _database.updateHighScore(points, uid);
   }
 
-
+  //----------------check if user is arleady in firestore if not ask about nick and save him into database---------------
 
   Future checkContains() async {
     dynamic uid = await Authentication().getUserId();
@@ -78,12 +76,13 @@ class _HomeState extends State<Home> {
 
     if (uid is String && result != null) {
       if (result == false) {
+        //show dialog to provide user nick
         await showDialog(
             barrierDismissible: false,
             context: context,
             builder: (context) => WillPopScope(
-              onWillPop: (){},
-              child: AlertDialog(
+                  onWillPop: () {},
+                  child: AlertDialog(
                     backgroundColor: Color.fromRGBO(34, 12, 44, 1),
                     title: Text(" Nickname",
                         style: TextStyle(
@@ -118,7 +117,11 @@ class _HomeState extends State<Home> {
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                             color: Color.fromRGBO(244, 13, 193, 1),
                             onPressed: () async {
-                              await _database.insertUser(User(nickName: _nickController.text,uid: uid,highScore: 0).userMap());
+                              await _database.insertUser(User(
+                                      nickName: _nickController.text,
+                                      uid: uid,
+                                      highScore: 0)
+                                  .userMap());
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -132,7 +135,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-            ));
+                ));
       }
     }
   }

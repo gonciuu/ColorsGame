@@ -7,6 +7,7 @@ class Database{
   final CollectionReference users = Firestore.instance.collection("users");
 
 
+  //----------------check if user is already in database-----------------------
   Future<bool> checkUserContains(String uid) async{
     try{
       DocumentSnapshot snapshot = await users.document(uid).get();
@@ -20,7 +21,9 @@ class Database{
       return null;
     }
   }
+  //===========================================================================
 
+  //-------------insert user to database-----------------
   Future insertUser(Map<String,dynamic> userMap) async{
     try{
       return await users.document(userMap['uid']).setData(userMap);
@@ -28,7 +31,9 @@ class Database{
       return null;
     }
   }
+  //======================================================
 
+  //------------------get user full object from database--------------------
   Future<User> getUserInfo(String uid) async{
     try{
       DocumentSnapshot snapshot = await users.document(uid).get();
@@ -39,6 +44,7 @@ class Database{
     }
   }
 
+  //----------------------update just nick of user----------------------
   Future updateNick(String newNick,String uid) async{
     try{
       return await users.document(uid).updateData({"nickName":newNick});
@@ -47,6 +53,7 @@ class Database{
     }
   }
 
+  //----------------------update just high score of user----------------------
   Future updateHighScore(int newHighScore,String uid) async{
     try{
       DocumentSnapshot snapshot = await users.document(uid).get();
