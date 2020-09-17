@@ -1,7 +1,6 @@
-import 'package:color_run/authentication/authentication.dart';
-import 'package:color_run/firestore/database.dart';
-import 'package:color_run/models/user.dart';
+
 import 'package:color_run/screens/settings/settings.dart';
+import 'package:color_run/screens/top_players/top_players.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +24,20 @@ class _UserInterfaceState extends State<UserInterface> {
   Future showBottomSettings() async{
      await showModalBottomSheet(
          shape: RoundedRectangleBorder(
-           borderRadius: BorderRadius.circular(10.0),
+           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
          ),
          backgroundColor: Color.fromRGBO(34, 12, 44, 1),
          context: context, builder: (context) => Settings());
+  }
+
+  //show top users bottom sheet
+  void showTopPlayersBottomSheet() {
+    showBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+        ),
+        backgroundColor: Color.fromRGBO(34, 12, 44, 1),
+        context: context, builder: (context) => TopPlayers());
   }
 
 
@@ -81,10 +90,13 @@ class _UserInterfaceState extends State<UserInterface> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.supervised_user_circle,
-                size: 70.0,
-                color: Colors.white,
+              GestureDetector(
+                child: Icon(
+                  Icons.supervised_user_circle,
+                  size: 70.0,
+                  color: Colors.white,
+                ),
+                onTap: () =>  showTopPlayersBottomSheet()  ,
               ),
               SizedBox(
                 width: 30.0,
@@ -95,7 +107,7 @@ class _UserInterfaceState extends State<UserInterface> {
                   size: 70.0,
                   color: Colors.white,
                 ),
-                onTap: () async => showBottomSettings()
+                onTap: () async => await showBottomSettings()
 
               ),
             ],
