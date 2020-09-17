@@ -20,6 +20,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final Database _database = Database();
+  final _nickController = TextEditingController();
+
   int points = 0;
 
   bool isStart =
@@ -54,15 +58,19 @@ class _HomeState extends State<Home> {
       });
 
   //loss the game (show loss screen on screen and stop clicked on containers)
-  void loss() {
+  void loss() async{
     setState(() {
       isLoss = true;
       isStart = false;
+      //save points to firestore
     });
+    dynamic uid = await Authentication().getUserId();
+
+    dynamic result = await _database.updateHighScore(points, uid);
+    
   }
 
-  final Database _database = Database();
-  final _nickController = TextEditingController();
+
 
   Future checkContains() async {
     dynamic uid = await Authentication().getUserId();
@@ -125,8 +133,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
             ));
-      } else {
-        print("TRUE");
       }
     }
   }

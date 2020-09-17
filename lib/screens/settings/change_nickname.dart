@@ -10,7 +10,7 @@ class ChangeNickname extends StatefulWidget {
 }
 
 class _ChangeNicknameState extends State<ChangeNickname> {
-  TextEditingController _nickController = TextEditingController(text: "Loading username...");
+  final _nickController = TextEditingController(text: "Loading username...");
   final Database _database = Database();
 
   String changeResult = "";
@@ -72,9 +72,4 @@ class _ChangeNicknameState extends State<ChangeNickname> {
 
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _nickController = TextEditingController(text: "Loading username...");
-  }
 }

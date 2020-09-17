@@ -47,4 +47,19 @@ class Database{
     }
   }
 
+  Future updateHighScore(int newHighScore,String uid) async{
+    try{
+      DocumentSnapshot snapshot = await users.document(uid).get();
+      if(newHighScore > int.parse((snapshot.data['highScore']).toString())){
+        return await users.document(uid).updateData({"highScore":newHighScore});
+      }else{
+        print("NIE WIEKSZY REKORD");
+        return null;
+      }
+    }catch(e){
+      print("ERROR $e");
+      return e.toString();
+    }
+  }
+
 }
