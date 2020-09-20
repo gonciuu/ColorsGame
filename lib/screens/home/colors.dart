@@ -31,7 +31,7 @@ class _GameColorsState extends State<GameColors> {
             GestureDetector(
               child: Container(color: Color.fromRGBO(0, 0, 0, randomDarker)),
               onTap: () async{
-                await widget.loss(); //loss the game
+                widget.loss(); //loss the game
                 print(randomContainer());
               },
             ),
