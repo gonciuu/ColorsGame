@@ -69,12 +69,17 @@ class Database {
     }
   }
 
-  List<User> _usersListFromSnapshot(QuerySnapshot snapshot) => snapshot
-      .documents
-      .map((userMap) =>
-          User(nickName: "", uid: "", highScore: 0).userFromMap(userMap.data))
-      .toList();
+  List<User> _usersListFromSnapshot(QuerySnapshot snapshot) {
+    List<User> usersList = snapshot
+        .documents
+        .map((userMap) =>
+        User(nickName: "", uid: "", highScore: 0).userFromMap(userMap.data))
+        .toList();
+    return usersList.length > 10 ? usersList.sublist(0,10) : usersList;
+  }
 
   Stream<List<User>> get allUsers =>
       users.orderBy("highScore",descending: true).snapshots().map(_usersListFromSnapshot);
+
+
 }
