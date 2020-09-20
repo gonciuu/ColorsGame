@@ -1,3 +1,4 @@
+import 'package:color_run/screens/top_players/top_players.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,15 @@ class _LossState extends State<Loss> {
   void initState() {
     super.initState();
     userHighScore();
+  }
+
+  void showTopPlayersBottomSheet() {
+    showBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+        ),
+        backgroundColor: Color.fromRGBO(34, 12, 44, 1),
+        context: context, builder: (context) => TopPlayers());
   }
 
   @override
@@ -62,7 +72,7 @@ class _LossState extends State<Loss> {
             GestureDetector(child: Icon(Icons.play_circle_outline,color: Colors.white,size: 120.0,),onTap: (){
               widget.playAgain();
             },),
-            Icon(Icons.supervised_user_circle,color: Colors.white,size: 120.0,),
+            GestureDetector(child: Icon(Icons.supervised_user_circle,color: Colors.white,size: 120.0,),onTap: () => showTopPlayersBottomSheet(),),
           ],
         )
       ],
