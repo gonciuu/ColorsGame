@@ -82,4 +82,12 @@ class Database {
       users.orderBy("highScore",descending: true).snapshots().map(_usersListFromSnapshot);
 
 
+  Stream<int> userPosition(String uid){
+    return  users.orderBy("highScore",descending: true).snapshots().map((snapshot){
+      return snapshot
+          .documents
+          .map((userMap) => userMap.data['uid']).toList().indexOf(uid) + 1;
+    });
+  }
+
 }
