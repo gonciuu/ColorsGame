@@ -1,7 +1,5 @@
-import 'package:color_run/authentication/authentication.dart';
 import 'package:color_run/firestore/database.dart';
 import 'package:color_run/models/user.dart';
-import 'package:color_run/screens/auth/auth.dart';
 import 'package:color_run/screens/top_players/top.dart';
 import 'package:color_run/screens/top_players/user_app_bar.dart';
 import 'package:flutter/cupertino.dart';

@@ -5,6 +5,7 @@ import 'package:color_run/constants/inputs_decorations.dart';
 import 'package:color_run/firestore/database.dart';
 import 'package:color_run/models/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './loss.dart';
 
@@ -59,12 +60,16 @@ class _HomeState extends State<Home> {
   //loss the game (show loss screen on screen and stop clicked on containers)
   void loss() async {
     dynamic uid = await Authentication().getUserId();
-    await _database.updateHighScore(points, uid);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if((prefs.getInt(uid) ?? 0) < points){
+      prefs.setInt(uid, points);
+    }
     setState(() {
       isLoss = true;
       isStart = false;
       //save points to firestore
     });
+    await _database.updateHighScore(points, uid);
   }
 
   //----------------check if user is arleady in firestore if not ask about nick and save him into database---------------
@@ -121,6 +126,8 @@ class _HomeState extends State<Home> {
                                       uid: uid,
                                       highScore: 0)
                                   .userMap());
+                              SharedPreferences prefs  = await SharedPreferences.getInstance();
+                              prefs.setInt(uid, 0);
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -141,13 +148,9 @@ class _HomeState extends State<Home> {
 
   //get user info object
   Future getHighScore() async{
-    dynamic result = await _database.getUserInfo(await Authentication().getUserId());
-    if(result!=null){
-      return (result as User).highScore;
-    }else{
-      print(result);
-      return 0;
-    }
+    final String uid = await Authentication().getUserId();
+    final SharedPreferences prefs  = await SharedPreferences.getInstance();
+    return prefs.getInt(uid) ?? 0;
   }
 
   @override

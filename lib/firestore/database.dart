@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:color_run/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Database {
   final CollectionReference users = Firestore.instance.collection("users");
@@ -56,6 +57,7 @@ class Database {
     try {
       DocumentSnapshot snapshot = await users.document(uid).get();
       if (newHighScore > int.parse((snapshot.data['highScore']).toString())) {
+
         return await users
             .document(uid)
             .updateData({"highScore": newHighScore});
