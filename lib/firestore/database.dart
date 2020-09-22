@@ -71,6 +71,7 @@ class Database {
     }
   }
 
+  //--------------------get all users top 10 list from firestore---------------------------
   List<User> _usersListFromSnapshot(QuerySnapshot snapshot) {
     List<User> usersList = snapshot
         .documents
@@ -80,10 +81,14 @@ class Database {
     return usersList.length > 10 ? usersList.sublist(0,10) : usersList;
   }
 
+
+
+  //-----------------------all users stream--------------------------
   Stream<List<User>> get allUsers =>
       users.orderBy("highScore",descending: true).snapshots().map(_usersListFromSnapshot);
 
 
+  //-----------------------------get user position in all player high scores--------------------------
   Stream<int> userPosition(String uid){
     return  users.orderBy("highScore",descending: true).snapshots().map((snapshot){
       return snapshot

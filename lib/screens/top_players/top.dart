@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 
 
 class Top extends StatelessWidget {
+
+  //user top 10 players
   final AsyncSnapshot<List<User>> snapshot;
   Top(this.snapshot);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemBuilder: (context, index) => UserListTile(snapshot,index),
+        itemBuilder: (context, index) => UserListTile(snapshot.data[index]),
         itemCount: snapshot.data.length,
         shrinkWrap: true,
         scrollDirection: Axis.vertical,

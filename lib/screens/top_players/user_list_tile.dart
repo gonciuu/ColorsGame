@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 
 class UserListTile extends StatelessWidget {
 
-  final AsyncSnapshot<List<User>> snapshot;
-  final int index;
-
-  UserListTile(this.snapshot,this.index);
+  //user to show in list tile
+  final User _user;
+  UserListTile(this._user);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,8 +13,8 @@ class UserListTile extends StatelessWidget {
           0.0, 8.0, 8.0, 8.0),
       child: ListTile(
         title: Text(
-          snapshot.data[index].nickName.length > 0
-              ? snapshot.data[index].nickName
+          _user.nickName.length > 0
+              ? _user.nickName
               : "Empty nick",
           style: TextStyle(
               fontSize: 16.0,
@@ -30,9 +29,9 @@ class UserListTile extends StatelessWidget {
           radius: 40.0,
           child: Center(
             child: Text(
-              snapshot.data[index].nickName.length >
+              _user.nickName.length >
                   0
-                  ? "${snapshot.data[index].nickName[0].toUpperCase() ?? "?"}"
+                  ? "${_user.nickName[0].toUpperCase() ?? "?"}"
                   : "?",
               style: TextStyle(
                   fontSize: 36.0,
@@ -45,7 +44,7 @@ class UserListTile extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              snapshot.data[index].highScore
+              _user.highScore
                   .toString(),
               style: TextStyle(
                 fontSize: 20.0,
