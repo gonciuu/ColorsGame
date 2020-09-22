@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
   void loss() async {
     dynamic uid = await Authentication().getUserId();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if((prefs.getInt(uid) ?? 0) < points){
+    if ((prefs.getInt(uid) ?? 0) < points) {
       prefs.setInt(uid, points);
     }
     setState(() {
@@ -126,7 +126,8 @@ class _HomeState extends State<Home> {
                                       uid: uid,
                                       highScore: 0)
                                   .userMap());
-                              SharedPreferences prefs  = await SharedPreferences.getInstance();
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
                               prefs.setInt(uid, 0);
                               Navigator.pop(context);
                             },
@@ -142,20 +143,29 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ));
+      } else {
+        int highScore = (await _database.getUserInfo(uid)).highScore;
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        if (highScore != preferences.getInt(uid)) {
+          print("WYKONALO SIE");
+          setState(() {
+            preferences.setInt(uid, highScore);
+          });
+        }
       }
     }
   }
 
-  //get user info object
-  Future getHighScore() async{
-    final String uid = await Authentication().getUserId();
-    final SharedPreferences prefs  = await SharedPreferences.getInstance();
-    return prefs.getInt(uid) ?? 0;
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    checkContains();
+    //get user info object
+    Future getHighScore() async {
+      final String uid = await Authentication().getUserId();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getInt(uid) ?? 0;
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -185,16 +195,21 @@ class _HomeState extends State<Home> {
                               : MediaQuery.of(context).size.height * 0.12),
                     ),
                     Points(points),
-                    if (!isStart) UserInterface(startGame,getHighScore)
+                    if (!isStart) UserInterface(startGame, getHighScore)
                   ],
                 )
               : Loss(
                   playAgain: playAgain,
                   points: points,
-                  getHighScore : getHighScore
-                ) /*loss game*/
+                  getHighScore: getHighScore) /*loss game*/
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+       super.initState();
+       checkContains();
   }
 }

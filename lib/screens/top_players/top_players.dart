@@ -5,9 +5,14 @@ import 'package:color_run/screens/top_players/user_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'UserRank.dart';
+import './UserRank.dart';
 
-class TopPlayers extends StatelessWidget {
+class TopPlayers extends StatefulWidget {
+  @override
+  _TopPlayersState createState() => _TopPlayersState();
+}
+
+class _TopPlayersState extends State<TopPlayers> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<User>>(
