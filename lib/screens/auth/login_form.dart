@@ -87,7 +87,9 @@ class _LoginFormState extends State<LoginForm> {
               child: FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(170, 138, 183, 1),
-                onPressed: () {},
+                onPressed: ()async {
+                  await _authentication.loginWithGoogle();
+                },
                 child: Text(
                   "Login with google",
                   style: TextStyle(
