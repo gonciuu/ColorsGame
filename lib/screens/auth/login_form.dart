@@ -65,9 +65,8 @@ class _LoginFormState extends State<LoginForm> {
                 hintText: "Enter Email",
                 hintStyle: TextStyle(color: Colors.grey[400]),
               ),
-              onFieldSubmitted: (val) {
-                FocusScope.of(context).requestFocus(focus);
-              },
+              onFieldSubmitted: (val) => focus.requestFocus()
+              ,
             ),
             SizedBox(
               height: 15.0,
