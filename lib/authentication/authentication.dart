@@ -61,6 +61,8 @@ class Authentication {
     }
   }
 
+  //authenticate with google
+
   Future loginWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
