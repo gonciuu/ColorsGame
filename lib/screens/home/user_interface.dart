@@ -15,12 +15,14 @@ class UserInterface extends StatefulWidget {
   _UserInterfaceState createState() => _UserInterfaceState();
 }
 
-class _UserInterfaceState extends State<UserInterface> {
+class _UserInterfaceState extends State<UserInterface>  with SingleTickerProviderStateMixin {
+
+  AnimationController _controller;
 
 
   int highScore = 0;
 
-  //show bottom settings sheet
+  //show bottom settings she  et
   Future showBottomSettings() async{
      await showModalBottomSheet(
          shape: RoundedRectangleBorder(
@@ -51,6 +53,8 @@ class _UserInterfaceState extends State<UserInterface> {
   void initState() {
     super.initState();
     userHighScore();
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 800))..repeat(reverse: true,);
+
   }
 
   @override
@@ -63,12 +67,21 @@ class _UserInterfaceState extends State<UserInterface> {
           SizedBox(
             height: 70.0,
           ),
-          GestureDetector(
-            onTap: widget.startGame,
-            child: Icon(
-              Icons.play_circle_outline,
-              size: 180.0,
-              color: Colors.white,
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (_, child) {
+              return Transform.scale(
+                scale : _controller.value + 0.1,
+                child: child,
+              );
+            },
+            child: GestureDetector(
+              onTap: widget.startGame,
+              child: Icon(
+                Icons.play_circle_outline,
+                size: 180.0,
+                color: Colors.white,
+              ),
             ),
           ),
           SizedBox(
