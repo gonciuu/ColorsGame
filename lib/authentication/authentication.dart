@@ -72,7 +72,7 @@ class Authentication {
       return await auth.signInWithCredential(credential);
     } catch (e) {
       print(e);
-      return null;
+      return e.toString();
     }
   }
 }

@@ -88,7 +88,10 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(170, 138, 183, 1),
                 onPressed: ()async {
-                  await _authentication.loginWithGoogle();
+                  dynamic result = await _authentication.loginWithGoogle();
+                  if (result is String) {
+                    _showBottomSnackBar(Text(result));
+                  }
                 },
                 child: Text(
                   "Login with google",

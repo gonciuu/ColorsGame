@@ -22,7 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final Authentication _authentication = Authentication();
 
   //show snakbar in bottom
-  void showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
+  void _showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
 
 
 
@@ -60,7 +60,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   dynamic result = await _authentication.registerWithEmailAndPassword(_emailController.text, _passwordController.text);
                   await _progressDialog.hide();
                   if (result is String) {
-                    showBottomSnackBar(Text(result));
+                    _showBottomSnackBar(Text(result));
                   } else {
                     print((result as AuthResult).user.uid);
                   }
@@ -79,7 +79,12 @@ class _RegisterFormState extends State<RegisterForm> {
               child: FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(170, 138, 183, 1),
-                onPressed: () {  },
+                onPressed: ()async {
+                  dynamic result = await _authentication.loginWithGoogle();
+                  if (result is String) {
+                    _showBottomSnackBar(Text(result));
+                  }
+                },
                 child: Text(
                   "Register with google",
                   style: TextStyle(
