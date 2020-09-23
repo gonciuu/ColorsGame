@@ -88,4 +88,10 @@ class _LossState extends State<Loss>  with  SingleTickerProviderStateMixin{
       ],
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }

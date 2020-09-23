@@ -1,4 +1,3 @@
-
 import 'package:color_run/screens/settings/settings.dart';
 import 'package:color_run/screens/top_players/top_players.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,27 +8,27 @@ class UserInterface extends StatefulWidget {
   final Function startGame;
   final Function getHighScore;
 
-  UserInterface(this.startGame,this.getHighScore);
+  UserInterface(this.startGame, this.getHighScore);
 
   @override
   _UserInterfaceState createState() => _UserInterfaceState();
 }
 
-class _UserInterfaceState extends State<UserInterface>  with SingleTickerProviderStateMixin {
-
+class _UserInterfaceState extends State<UserInterface>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
-
 
   int highScore = 0;
 
   //show bottom settings she  et
-  Future showBottomSettings() async{
-     await showModalBottomSheet(
-         shape: RoundedRectangleBorder(
-           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-         ),
-         backgroundColor: Color.fromRGBO(34, 12, 44, 1),
-         context: context, builder: (context) => Settings());
+  Future showBottomSettings() async {
+    await showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+        ),
+        backgroundColor: Color.fromRGBO(34, 12, 44, 1),
+        context: context,
+        builder: (context) => Settings());
   }
 
   //show top users bottom sheet
@@ -39,22 +38,28 @@ class _UserInterfaceState extends State<UserInterface>  with SingleTickerProvide
           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
         ),
         backgroundColor: Color.fromRGBO(34, 12, 44, 1),
-        context: context, builder: (context) => TopPlayers());
+        context: context,
+        builder: (context) => TopPlayers());
   }
 
-
   //get user highscore from future function in int state
-  Future userHighScore()async{
-      highScore = await widget.getHighScore();
-      setState(() {});
+  Future userHighScore() async {
+    highScore = await widget.getHighScore();
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
     userHighScore();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 800))..repeat(reverse: true,);
-
+    _controller = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 800),
+        lowerBound: 0.4,
+        upperBound: 1.1)
+      ..repeat(
+        reverse: true,
+      );
   }
 
   @override
@@ -71,7 +76,7 @@ class _UserInterfaceState extends State<UserInterface>  with SingleTickerProvide
             animation: _controller,
             builder: (_, child) {
               return Transform.scale(
-                scale : _controller.value + 0.1,
+                scale: _controller.value,
                 child: child,
               );
             },
@@ -109,20 +114,18 @@ class _UserInterfaceState extends State<UserInterface>  with SingleTickerProvide
                   size: 70.0,
                   color: Colors.white,
                 ),
-                onTap: () =>  showTopPlayersBottomSheet()  ,
+                onTap: () => showTopPlayersBottomSheet(),
               ),
               SizedBox(
                 width: 30.0,
               ),
               GestureDetector(
-                child: Icon(
-                  Icons.settings,
-                  size: 70.0,
-                  color: Colors.white,
-                ),
-                onTap: () async => await showBottomSettings()
-
-              ),
+                  child: Icon(
+                    Icons.settings,
+                    size: 70.0,
+                    color: Colors.white,
+                  ),
+                  onTap: () async => await showBottomSettings()),
             ],
           )
         ],
@@ -130,4 +133,9 @@ class _UserInterfaceState extends State<UserInterface>  with SingleTickerProvide
     );
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
