@@ -13,8 +13,8 @@ class Loss extends StatefulWidget {
   _LossState createState() => _LossState();
 }
 
-class _LossState extends State<Loss> {
-
+class _LossState extends State<Loss>  with  SingleTickerProviderStateMixin{
+  AnimationController _controller;
   //get user actual high score
   int highScore = 0;
 
@@ -27,6 +27,7 @@ class _LossState extends State<Loss> {
   void initState() {
     super.initState();
     userHighScore();
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1500))..repeat();
   }
 
   void showTopPlayersBottomSheet() {
@@ -69,9 +70,18 @@ class _LossState extends State<Loss> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(child: Icon(Icons.play_circle_outline,color: Colors.white,size: 120.0,),onTap: (){
-              widget.playAgain();
-            },),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (_,child){
+                return Transform.rotate(
+                  angle : _controller.value *2 * 3.14,
+                  child: child,
+                );
+              },
+              child: GestureDetector(child: Icon(CupertinoIcons.refresh_circled,color: Colors.white,size: 120.0,),onTap: (){
+                widget.playAgain();
+              },),
+            ),
             GestureDetector(child: Icon(Icons.supervised_user_circle,color: Colors.white,size: 120.0,),onTap: () => showTopPlayersBottomSheet(),),
           ],
         )
