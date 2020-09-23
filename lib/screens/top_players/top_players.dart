@@ -5,7 +5,7 @@ import 'package:color_run/screens/top_players/user_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './UserRank.dart';
+import './user_rank.dart';
 
 class TopPlayers extends StatefulWidget {
   @override
