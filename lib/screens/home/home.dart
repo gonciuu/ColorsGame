@@ -121,6 +121,7 @@ class _HomeState extends State<Home> {
                             padding: EdgeInsets.symmetric(vertical: 20.0),
                             color: Color.fromRGBO(244, 13, 193, 1),
                             onPressed: () async {
+                              Navigator.pop(context);
                               await _database.insertUser(User(
                                       nickName: _nickController.text,
                                       uid: uid,
@@ -129,7 +130,6 @@ class _HomeState extends State<Home> {
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               prefs.setInt(uid, 0);
-                              Navigator.pop(context);
                             },
                             child: Text(
                               "Save",
