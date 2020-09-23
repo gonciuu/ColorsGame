@@ -16,18 +16,39 @@ class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final focus = FocusNode();
+
   //logging
   final Authentication _authentication = Authentication();
 
   //show snack bar in bottom
-  void _showBottomSnackBar(Widget content) => Scaffold.of(context).showSnackBar(SnackBar(content: content,behavior: SnackBarBehavior.floating,backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
+  void _showBottomSnackBar(Widget content) =>
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: content,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(60, 12, 44, 1)));
+
+
 
 
 
   @override
   Widget build(BuildContext context) {
-    final ProgressDialog _progressDialog = WidgetHelpers().getDialogLinearDialog(context, "Login in...");
+    final ProgressDialog _progressDialog =
+        WidgetHelpers().getDialogLinearDialog(context, "Login in...");
 
+    Future loginWithEmailAndPassword() async {
+      await _progressDialog.show();
+      dynamic result =
+      await _authentication.loginWithEmailAndPassword(
+          _emailController.text, _passwordController.text);
+      await _progressDialog.hide();
+      if (result is String) {
+        _showBottomSnackBar(Text(result));
+      } else {
+        print((result as AuthResult).user.uid);
+      }
+    }
 
     return Form(
       child: Padding(
@@ -37,23 +58,33 @@ class _LoginFormState extends State<LoginForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(color: Colors.white),
-                decoration: InputLoginTextDecoration.copyWith(
-                  hintText: "Enter Email",
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                )),
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(color: Colors.white),
+              decoration: InputLoginTextDecoration.copyWith(
+                hintText: "Enter Email",
+                hintStyle: TextStyle(color: Colors.grey[400]),
+              ),
+              onFieldSubmitted: (val) {
+                FocusScope.of(context).requestFocus(focus);
+              },
+            ),
             SizedBox(
               height: 15.0,
             ),
             TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                style: TextStyle(color: Colors.white),
-                decoration: InputLoginTextDecoration.copyWith(
-                    hintText: "Enter Password",
-                    hintStyle: TextStyle(color: Colors.grey[400]))),
+              controller: _passwordController,
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+              decoration: InputLoginTextDecoration.copyWith(
+                  hintText: "Enter Password",
+                  hintStyle: TextStyle(color: Colors.grey[400])),
+              focusNode: focus,
+              onFieldSubmitted: (val) async{
+                focus.unfocus();
+                await loginWithEmailAndPassword();
+              },
+            ),
             SizedBox(
               height: 30.0,
             ),
@@ -63,15 +94,9 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(244, 13, 193, 1),
                 onPressed: () async {
-                  await _progressDialog.show();
-                  dynamic result = await _authentication.loginWithEmailAndPassword(_emailController.text, _passwordController.text);
-                  await _progressDialog.hide();
-                  if (result is String) {
-                    _showBottomSnackBar(Text(result));
-                  } else {
-                    print((result as AuthResult).user.uid);
-                  }
-                },  
+                  focus.unfocus();
+                  await loginWithEmailAndPassword();
+                },
                 child: Text(
                   "Login",
                   style: TextStyle(
@@ -87,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
               child: FlatButton(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 color: Color.fromRGBO(170, 138, 183, 1),
-                onPressed: ()async {
+                onPressed: () async {
                   dynamic result = await _authentication.loginWithGoogle();
                   if (result is String) {
                     _showBottomSnackBar(Text(result));
